@@ -5,7 +5,7 @@
 clear
 
 mkdir -p /etc/SweetieSSH/
-wget -q -O /etc/SweetieSSH/proxy-edu.py https://raw.githubusercontent.com/wonderfulgo/tokengasken/main/proxy-edu.py
+wget -q -O /etc/SweetieSSH/proxy-edu.py wget https://raw.githubusercontent.com/wonderfulgo/tokengasken/main/proxy-edu.py
 chmod +x /etc/SweetieSSH/proxy-edu.py
 cd 
 
