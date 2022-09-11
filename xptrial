@@ -1,0 +1,13 @@
+#!/bin/bash
+
+data=( `cat /etc/v2ray/config.json | grep '^#!' | cut -d ' ' -f 2`);
+for user in "${data[@]}"
+do
+exp=$(grep -w "^#! $user" "/etc/v2ray/config.json" | cut -d ' ' -f 3)
+if [[ "1" -le "1" ]]; then
+sed -i "/^#! $user $exp/,/^},{/d" /etc/v2ray/config.json
+sed -i "/^#! $user $exp/,/^},{/d" /etc/v2ray/none.json
+fi
+done
+systemctl restart xray
+systemctl restart xray@none
