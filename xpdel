@@ -4,60 +4,62 @@ green='\e[0;32m'
 NC='\e[0m'
 
 ##vmess
-data=( `cat /etc/v2ray/config.json | grep '^#VM' | cut -d ' ' -f 2`);
+data=( `cat /etc/sweet/config/vmess/vmess.json | grep '^#VM' | cut -d ' ' -f 2`);
 now=`date +"%Y-%m-%d"`
 for user in "${data[@]}"
 do
-exp=$(grep -w "^#VM $user" "/etc/v2ray/config.json" | cut -d ' ' -f 3)
+exp=$(grep -w "^#VM $user" "/etc/sweet/config/vmess/vmess.json" | cut -d ' ' -f 3)
 d1=$(date -d "$exp" +%s)
 d2=$(date -d "$now" +%s)
 exp2=$(( (d1 - d2) / 86400 ))
 if [[ "$exp2" -le "0" ]]; then
-sed -i "/^#VM $user $exp/,/^},{/d" /etc/v2ray/config.json
-sed -i "/^#VM $user $exp/,/^},{/d" /etc/v2ray/none.json
+sed -i "/^#VM $user $exp/,/^},{/d" /etc/sweet/config/vmess/vmess.json
+sed -i "/^#VM $user $exp/,/^},{/d" /etc/sweet/config/vmessnon/vmessnon.json
 fi
 done
-systemctl restart xray
-systemctl restart xray@none
+
 ##trojan
-data=( `cat /etc/v2ray/config.json | grep '^#TJ' | cut -d ' ' -f 2`);
+data=( `cat /etc/sweet/config/core/properties.json | grep '^#TJ' | cut -d ' ' -f 2`);
 now=`date +"%Y-%m-%d"`
 for user in "${data[@]}"
 do
-exp=$(grep -w "^#TJ $user" "/etc/v2ray/config.json" | cut -d ' ' -f 3)
+exp=$(grep -w "^#TJ $user" "/etc/sweet/config/core/properties.json" | cut -d ' ' -f 3)
 d1=$(date -d "$exp" +%s)
 d2=$(date -d "$now" +%s)
 exp2=$(( (d1 - d2) / 86400 ))
 if [[ "$exp2" -le "0" ]]; then
-sed -i "/^#TJ $user $exp/,/^},{/d" /etc/v2ray/config.json
+sed -i "/^#TJ $user $exp/,/^},{/d" /etc/sweet/config/core/properties.json
 fi
 done
 
 ##trojanws
-data=( `cat /etc/v2ray/config.json | grep '^#WS' | cut -d ' ' -f 2`);
+data=( `cat /etc/sweet/config/trojanws/trojanws.json | grep '^#WS' | cut -d ' ' -f 2`);
 now=`date +"%Y-%m-%d"`
 for user in "${data[@]}"
 do
-exp=$(grep -w "^#WS $user" "/etc/v2ray/config.json" | cut -d ' ' -f 3)
+exp=$(grep -w "^#WS $user" "/etc/sweet/config/trojanws/trojanws.json" | cut -d ' ' -f 3)
 d1=$(date -d "$exp" +%s)
 d2=$(date -d "$now" +%s)
 exp2=$(( (d1 - d2) / 86400 ))
 if [[ "$exp2" -le "0" ]]; then
-sed -i "/^#WS $user $exp/,/^},{/d" /etc/v2ray/config.json
+sed -i "/^#WS $user $exp/,/^},{/d" /etc/sweet/config/trojanws/trojanws.json
 fi
 done
 
 ##grpc
-data=( `cat /etc/v2ray/config.json | grep '^#GR' | cut -d ' ' -f 2`);
+data=( `cat /etc/sweet/config/trojanws/trojanws.json | grep '^#GR' | cut -d ' ' -f 2`);
 now=`date +"%Y-%m-%d"`
 for user in "${data[@]}"
 do
-exp=$(grep -w "^#GR $user" "/etc/v2ray/config.json" | cut -d ' ' -f 3)
+exp=$(grep -w "^#GR $user" "/etc/sweet/config/trojanws/trojanws.json" | cut -d ' ' -f 3)
 d1=$(date -d "$exp" +%s)
 d2=$(date -d "$now" +%s)
 exp2=$(( (d1 - d2) / 86400 ))
 if [[ "$exp2" -le "0" ]]; then
-sed -i "/^#GR $user $exp/,/^},{/d" /etc/v2ray/config.json
+sed -i "/^#GR $user $exp/,/^},{/d" /etc/sweet/config/grpc/grpc.json
 fi
 done
-systemctl restart xray
+systemctl restart vmess
+systemctl restart vmessnon
+systemctl restart trojanws
+systemctl restart grpc
