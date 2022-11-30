@@ -59,7 +59,5 @@ if [[ "$exp2" -le "0" ]]; then
 sed -i "/^#GR $user $exp/,/^},{/d" /etc/sweet/config/grpc/grpc.json
 fi
 done
-systemctl restart vmess
-systemctl restart vmessnon
-systemctl restart trojanws
+
 systemctl restart grpc
