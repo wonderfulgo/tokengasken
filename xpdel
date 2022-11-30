@@ -47,11 +47,11 @@ fi
 done
 
 ##grpc
-data=( `cat /etc/sweet/config/trojanws/trojanws.json | grep '^#GR' | cut -d ' ' -f 2`);
+data=( `cat /etc/sweet/config/grpc/grpc.json | grep '^#GR' | cut -d ' ' -f 2`);
 now=`date +"%Y-%m-%d"`
 for user in "${data[@]}"
 do
-exp=$(grep -w "^#GR $user" "/etc/sweet/config/trojanws/trojanws.json" | cut -d ' ' -f 3)
+exp=$(grep -w "^#GR $user" "/etc/sweet/config/grpc/grpc.json" | cut -d ' ' -f 3)
 d1=$(date -d "$exp" +%s)
 d2=$(date -d "$now" +%s)
 exp2=$(( (d1 - d2) / 86400 ))
